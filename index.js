@@ -320,7 +320,7 @@ exports.install = function (Vue, options) {
         <textarea
             class="markdown"
             :name="textareaConfig.name"
-            :required="textareaConfig.required"
+            :required="textareaConfig.required && (mode === 'markdown' || mode ==='all')"
             v-bind:class="name"
             v-show="mode === 'markdown' || mode ==='all'"
             v-model="content.markdown"></textarea>
