@@ -317,7 +317,13 @@ exports.install = function (Vue, options) {
     template: `
       <div v-bind:class="name">
         <div class="editor" v-bind:class="name" v-show="mode === 'editor' || mode ==='all'"></div>
-        <textarea class="markdown" v-bind:class="name" v-show="mode === 'markdown' || mode ==='all'" v-model="content.markdown"></textarea>
+        <textarea
+            class="markdown"
+            :name="textareaConfig.name"
+            :required="textareaConfig.required"
+            v-bind:class="name"
+            v-show="mode === 'markdown' || mode ==='all'"
+            v-model="content.markdown"></textarea>
       </div>`,
     data () {
       return {
@@ -395,6 +401,14 @@ exports.install = function (Vue, options) {
       }
     },
     props: {
+      'textareaConfig': {
+          'name': {
+              default: '',
+              type: String,
+              required: false
+          },
+          'required': Boolean
+      },
       'mode': {
         default: 'editor', // 'editor', 'markdown', 'all'
         type: String,
