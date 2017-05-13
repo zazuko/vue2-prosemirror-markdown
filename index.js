@@ -359,7 +359,7 @@ exports.install = function (Vue, options) {
           })
           this.view.editor.updateState(state)
         }
-        this.$emit('content-change-markdown')
+        this.$emit('contentChangeMarkdown')
       })
 
       if (this.initialMarkdown) {
@@ -414,12 +414,12 @@ exports.install = function (Vue, options) {
         type: String,
         required: false
       },
-      'custom-class': {
+      'customClass': {
         default: 'vue-prosemirror',
         type: String,
         required: false
       },
-      'initial-markdown': {
+      'initialMarkdown': {
         type: String
       }
     },
