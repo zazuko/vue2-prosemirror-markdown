@@ -367,9 +367,9 @@ exports.install = function (Vue, options) {
         this.$emit('_content-change-markdown')
       }
 
-      if (this.eventHub)
+      if (window.eventHub)
       {
-          this.eventHub.$on('apply-markdown', this.events.applyMarkdown);
+          window.eventHub.$on('apply-markdown', this.events.applyMarkdown);
       }
     },
     methods: {
@@ -432,8 +432,7 @@ exports.install = function (Vue, options) {
       },
       'initialMarkdown': {
         type: String
-      },
-      'eventHub': Object
+      }
     },
     watch: {
       'content': {
