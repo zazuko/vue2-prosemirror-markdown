@@ -366,6 +366,11 @@ exports.install = function (Vue, options) {
         this.content.markdown = this.initialMarkdown
         this.$emit('_content-change-markdown')
       }
+
+      if (this.eventHub)
+      {
+          this.eventHub.$on('apply-markdown', this.events.applyMarkdown);
+      }
     },
     methods: {
       'setupProseMirror': function (content, editor) {
@@ -398,6 +403,12 @@ exports.install = function (Vue, options) {
         } else if (area.attachEvent) {
           area.attachEvent('onpropertychange', mtodoc)
         }
+      },
+      events: {
+        applyMarkdown: function(newData) {
+          this.content.markdown = newData.markdown;
+          this.$emit('_content-change-markdown')
+        }
       }
     },
     props: {
@@ -421,7 +432,8 @@ exports.install = function (Vue, options) {
       },
       'initialMarkdown': {
         type: String
-      }
+      },
+      'eventHub': Object
     },
     watch: {
       'content': {
