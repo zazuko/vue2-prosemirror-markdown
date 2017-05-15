@@ -369,7 +369,7 @@ exports.install = function (Vue, options) {
 
       if (window.eventHub)
       {
-          window.eventHub.$on('apply-markdown', this.events.applyMarkdown);
+          window.eventHub.$on('apply-markdown', this.applyMarkdown);
       }
     },
     methods: {
@@ -404,11 +404,9 @@ exports.install = function (Vue, options) {
           area.attachEvent('onpropertychange', mtodoc)
         }
       },
-      events: {
-        applyMarkdown: function(newData) {
-          this.content.markdown = newData.markdown;
-          this.$emit('_content-change-markdown')
-        }
+      applyMarkdown: function(newData) {
+        this.content.markdown = newData.markdown;
+        this.$emit('_content-change-markdown')
       }
     },
     props: {
