@@ -2,7 +2,6 @@
   "name": "vue2-prosemirror-markdown",
   "version": "0.0.1",
   "description": "Plugin to integrate prosemirror with Vue 2",
-  "author": "Robert Jefe Lindstaedt <robert.lindstaedt@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
