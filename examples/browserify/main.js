@@ -10,8 +10,6 @@ const insertCss = require('insert-css')
 insertCss(fs.readFileSync('./node_modules/normalize.css/normalize.css').toString())
 insertCss(fs.readFileSync('./node_modules/normalize.css/normalize.css').toString())
 
-const pkg = require('../../package.json')
-
 Vue.use(ElementUI)
 Vue.use(ProseMirror)
 

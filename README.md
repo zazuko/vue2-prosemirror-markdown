@@ -2,7 +2,7 @@
 
 Plugin to integrate prosemirror with Vue 2
 
-[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/vue2-prosemirror-markdown.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/vue2-prosemirror-markdown)
+[![Build Status](https://travis-ci.org/zazuko/vue2-prosemirror-markdown.svg?branch=master)](https://travis-ci.org/zazuko/vue2-prosemirror-markdown)
 
 ## Usage
 
@@ -13,7 +13,7 @@ import App from './App.vue'
 
 Vue.use(ProseMirror)
 
-new Vue({ // eslint-disable-line no-new,
+new Vue({ // eslint-disable-line no-new
   el: '#app',
   render: (h) => h(App)
 })
@@ -21,14 +21,27 @@ new Vue({ // eslint-disable-line no-new,
 This installs the component, which can be used as...
 
 ```html
-<prosemirror mode="all"></prosemirror>
+<prosemirror
+  :initialMarkdown="**hello**"
+  mode="all"
+  textareaConfig="{name: 'my-textarea'}"
+  @contentChangeMarkdown="markdownChangedHandler"/>
 ```
 
-| parameter        | values                                                                          |
-|------------------|---------------------------------------------------------------------------------|
-| `mode`           | `all`, `editor`, `markdown`                                                     |
-| `initial-markdown` | binding `:initial-markdown="someVar"`, as string: `initial-markdown="**text**"` |
+| parameter         | values                                                                          |
+|-------------------|---------------------------------------------------------------------------------|
+| `textareaConfig`  | `{name: 'a-string'}` (required)                                                 |
+| `mode`            | `all`, `editor` (default), `markdown`                                           |
+| `initialMarkdown` | binding `:initialMarkdown="someVar"`, as string: `initialMarkdown="**text**"`   |
+| `customClass`     | `'vue-prosemirror'` (default)                                                   |
 
+### Events
+
+| event name               | called with these arguments  |
+|--------------------------|------------------------------|
+| `changeContent`          | `(val, oldVal)`              |
+| `changeMode`             | `(val, oldVal)`              |
+| `contentChangeMarkdown`  | `(val, oldVal)`              |
 
 ## Build Setup
 

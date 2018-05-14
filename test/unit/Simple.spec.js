@@ -3,11 +3,10 @@ import ProseMirror from '../../'
 
 describe('Hello.vue', () => {
   it('should render correct contents', () => {
-
     Vue.use(ProseMirror)
     const vm = new Vue({
       el: document.createElement('div'),
-      template: `<prosemirror mode="all"></prosemirror>`
+      template: '<prosemirror mode="all" textareaConfig="{name: \'test-textarea\'}"></prosemirror>'
     })
     expect(vm.$el.children.length).toBe(2)
     expect(vm.$el.querySelector('.markdown.vue-prosemirror')).toBeTruthy()

@@ -268,7 +268,7 @@ textarea {
 }
 
 .ProseMirror-prompt-close:after {
-  content: "âœ•";
+  content: "✕";
   font-size: 12px;
 }
 
@@ -343,7 +343,7 @@ exports.install = function (Vue, options) {
       this.setupProseMirror(this.content.editor, this.editor)
       this.bindTextarea(this.$el.children[1])
 
-      // handle private cahnge events:
+      // handle private change events:
       //  * editor needs separate handling for inside and outside changes
       //  * markdown change is handled through v-model
       this.$on('_content-change-editor', (action) => {
@@ -367,13 +367,12 @@ exports.install = function (Vue, options) {
         this.$emit('_content-change-markdown')
       }
 
-      if (window.eventHub)
-      {
-          window.eventHub.$on('apply-markdown', this.applyMarkdown);
+      if (window.eventHub) {
+        window.eventHub.$on('apply-markdown', this.applyMarkdown)
       }
     },
     methods: {
-      'setupProseMirror': function (content, editor) {
+      setupProseMirror (content, editor) {
         const self = this
 
         this.view = new MenuBarEditorView(editor, {
@@ -389,7 +388,8 @@ exports.install = function (Vue, options) {
         })
         this.view.editor.focus()
       },
-      'bindTextarea': function (area) {
+
+      bindTextarea (area) {
         const self = this
 
         function mtodoc () {
@@ -404,42 +404,43 @@ exports.install = function (Vue, options) {
           area.attachEvent('onpropertychange', mtodoc)
         }
       },
-      applyMarkdown: function(newData) {
-        this.content.markdown = newData.markdown;
+
+      applyMarkdown (newData) {
+        this.content.markdown = newData.markdown
         this.$emit('_content-change-markdown')
       }
     },
     props: {
-      'textareaConfig': {
-          'name': {
-              default: '',
-              type: String,
-              required: false
-          },
-          'required': Boolean
+      textareaConfig: {
+        name: {
+          default: '',
+          type: String,
+          required: false
+        },
+        required: Boolean
       },
-      'mode': {
+      mode: {
         default: 'editor', // 'editor', 'markdown', 'all'
         type: String,
         required: false
       },
-      'customClass': {
+      customClass: {
         default: 'vue-prosemirror',
         type: String,
         required: false
       },
-      'initialMarkdown': {
+      initialMarkdown: {
         type: String
       }
     },
     watch: {
-      'content': {
-        handler: function (val, oldVal) {
-          this.$emit('change-content', val, oldVal)
+      content: {
+        handler (val, oldVal) {
+          this.$emit('changeContent', val, oldVal)
         },
         deep: true
       },
-      'mode': function (val, oldVal) {
+      mode (val, oldVal) {
         // editor doesn't get updated when it isn't visible.
         // Do manually here
         if (oldVal !== 'all' && (val === 'editor' || val === 'all')) {
@@ -450,7 +451,7 @@ exports.install = function (Vue, options) {
           this.view.editor.updateState(state)
         }
 
-        this.$emit('change-mode', val, oldVal)
+        this.$emit('changeMode', val, oldVal)
       }
     }
   })

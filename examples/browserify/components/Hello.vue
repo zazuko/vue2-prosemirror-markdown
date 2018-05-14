@@ -26,7 +26,6 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -37,7 +36,7 @@ export default {
         },
         {
           parameter: 'initial-markdown',
-          values: `:initial-markdown="someVar", as string: initial-markdown="**text**"`
+          values: ':initial-markdown="someVar", as string: initial-markdown="**text**"'
         }
       ],
       options: [
