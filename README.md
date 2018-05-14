@@ -1,14 +1,14 @@
-# vue-prosemirror-2
+# vue2-prosemirror-markdown
 
 Plugin to integrate prosemirror with Vue 2
 
-[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/vue-prosemirror-2.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/vue-prosemirror-2)
+[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/vue2-prosemirror-markdown.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/vue2-prosemirror-markdown)
 
 ## Usage
 
 ```js
 import Vue from 'vue'
-import ProseMirror from 'vue-prosemirror-2'
+import ProseMirror from 'vue2-prosemirror-markdown'
 import App from './App.vue'
 
 Vue.use(ProseMirror)
