@@ -1,5 +1,5 @@
 const insertCss = require('insert-css')
-const { MenuBarEditorView } = require('prosemirror-menu')
+const { EditorView } = require('prosemirror-view')
 const { EditorState } = require('prosemirror-state')
 const { schema, defaultMarkdownParser, defaultMarkdownSerializer } = require('prosemirror-markdown')
 const { exampleSetup } = require('prosemirror-example-setup')
@@ -315,13 +315,13 @@ exports.install = function (Vue, options) {
   Vue.component('prosemirror', {
     name: 'prosemirror',
     template: `
-      <div v-bind:class="name">
-        <div class="editor" v-bind:class="name" v-show="mode === 'editor' || mode ==='all'"></div>
+      <div v-bind:class="className">
+        <div class="editor" v-bind:class="className" v-show="mode === 'editor' || mode ==='all'"></div>
         <textarea
             class="markdown"
             :name="textareaConfig.name"
             :required="textareaConfig.required && (mode === 'markdown' || mode ==='all')"
-            v-bind:class="name"
+            v-bind:class="className"
             v-show="mode === 'markdown' || mode ==='all'"
             v-model="content.markdown"></textarea>
       </div>`,
@@ -333,7 +333,7 @@ exports.install = function (Vue, options) {
         },
         editor: {},
         view: {},
-        name: 'vue-prosemirror'
+        className: this.customClass || 'vue-prosemirror'
       }
     },
     mounted () {
@@ -347,7 +347,7 @@ exports.install = function (Vue, options) {
       //  * editor needs separate handling for inside and outside changes
       //  * markdown change is handled through v-model
       this.$on('_content-change-editor', (action) => {
-        this.view.updateState(this.view.editor.state.applyAction(action))
+        this.view.updateState(this.view.state.apply(action))
         this.$emit('content-change-editor')
       })
 
@@ -357,9 +357,8 @@ exports.install = function (Vue, options) {
             doc: defaultMarkdownParser.parse(this.content.markdown),
             plugins: exampleSetup({schema})
           })
-          this.view.editor.updateState(state)
+          this.view.updateState(state)
         }
-        this.$emit('contentChangeMarkdown')
       })
 
       if (this.initialMarkdown) {
@@ -373,20 +372,18 @@ exports.install = function (Vue, options) {
     },
     methods: {
       setupProseMirror (content, editor) {
-        const self = this
-
-        this.view = new MenuBarEditorView(editor, {
+        this.view = new EditorView(editor, {
           state: EditorState.create({
             doc: defaultMarkdownParser.parse(content),
             plugins: exampleSetup({schema})
           }),
-          onAction: (action) => {
-            self.$emit('_content-change-editor', action)
-            self.content.editor = this.view.editor.state.doc
-            self.content.markdown = defaultMarkdownSerializer.serialize(this.view.editor.state.doc)
+          dispatchTransaction: (action) => {
+            this.$emit('_content-change-editor', action)
+            this.content.editor = this.view.state.doc
+            this.content.markdown = defaultMarkdownSerializer.serialize(this.view.state.doc)
           }
         })
-        this.view.editor.focus()
+        this.view.focus()
       },
 
       bindTextarea (area) {
@@ -434,9 +431,14 @@ exports.install = function (Vue, options) {
       }
     },
     watch: {
+      initialMarkdown (val) {
+        this.content.markdown = val
+        this.$emit('_content-change-markdown')
+      },
       content: {
         handler (val, oldVal) {
-          this.$emit('changeContent', val, oldVal)
+          this.$emit('contentChange', val, oldVal)
+          this.$emit('contentChangeMarkdown', val.markdown, oldVal.markdown)
         },
         deep: true
       },
@@ -448,10 +450,10 @@ exports.install = function (Vue, options) {
             doc: defaultMarkdownParser.parse(this.content.markdown),
             plugins: exampleSetup({schema})
           })
-          this.view.editor.updateState(state)
+          this.view.updateState(state)
         }
 
-        this.$emit('changeMode', val, oldVal)
+        this.$emit('modeChange', val, oldVal)
       }
     }
   })

@@ -39,9 +39,9 @@ This installs the component, which can be used as...
 
 | event name               | called with these arguments  |
 |--------------------------|------------------------------|
-| `changeContent`          | `(val, oldVal)`              |
-| `changeMode`             | `(val, oldVal)`              |
-| `contentChangeMarkdown`  | `(val, oldVal)`              |
+| `contentChange`          | `(val, oldVal)`, both are Objects: `{editor: Node, markdown: String}`              |
+| `contentChangeMarkdown`  | `(markdown: String)`           |
+| `modeChange`             | `(val: String, oldVal: String)`              |
 
 ## Build Setup
 
