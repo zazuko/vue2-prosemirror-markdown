@@ -5,10 +5,6 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import App from './App.vue'
 import ProseMirror from '../../'
-const fs = require('fs')
-const insertCss = require('insert-css')
-insertCss(fs.readFileSync('./node_modules/normalize.css/normalize.css').toString())
-insertCss(fs.readFileSync('./node_modules/normalize.css/normalize.css').toString())
 
 Vue.use(ElementUI)
 Vue.use(ProseMirror)

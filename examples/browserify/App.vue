@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="https://vuejs.org/images/logo.png">
+    <code><h1>vue2-prosemirror-markdown</h1></code>
     <hello></hello>
   </div>
 </template>
