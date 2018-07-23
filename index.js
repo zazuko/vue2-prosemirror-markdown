@@ -283,7 +283,6 @@ textarea {
 
 .ProseMirror-prompt-buttons {
   margin-top: 5px;
-  display: none;
 }
 
 textarea.vue-prosemirror,
