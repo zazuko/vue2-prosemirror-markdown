@@ -16,16 +16,17 @@ export function openPrompt(options) {
 
   let submitButton = document.createElement("button")
   submitButton.type = "submit"
-  submitButton.className = prefix + "-submit"
+  submitButton.className = prefix + "-submit btn btn-primary"
   submitButton.textContent = "OK"
   let cancelButton = document.createElement("button")
   cancelButton.type = "button"
-  cancelButton.className = prefix + "-cancel"
+  cancelButton.className = prefix + "-cancel btn btn-secondary"
   cancelButton.textContent = "Cancel"
   cancelButton.addEventListener("click", close)
 
   let form = wrapper.appendChild(document.createElement("form"))
-  if (options.title) form.appendChild(document.createElement("h5")).textContent = options.title
+  form.className = "form-group"
+  if (options.title) form.appendChild(document.createElement("label")).textContent = options.title
   domFields.forEach(field => {
     form.appendChild(document.createElement("div")).appendChild(field)
   })
@@ -143,6 +144,7 @@ export class TextField extends Field {
     let input = document.createElement("input")
     input.type = "text"
     input.placeholder = this.options.label
+    input.className = "form-control";
     input.value = this.options.value || ""
     input.autocomplete = "off"
     return input
